@@ -1,0 +1,52 @@
+<!doctype html>
+<head>
+  <title>Search Engine</title>
+  <style>
+body {
+	max-width: 800px;
+	margin-top: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-family: Calibri;
+}
+h1 {
+	font-size: 60px;
+}
+input {
+	width: 280px;
+	height: 30px;
+	font-size: 20px;
+	margin: 0px;
+}
+#res {
+	text-align: left;
+	font-family: Arial;
+}
+  </style>
+<link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/1200px-Magnifying_glass_icon.svg.png">
+</head>
+
+<body>
+<h1>
+Boogle.com
+</h1>
+<form method="POST" action="/">
+    {{ form.csrf_token }}
+    {{ form.query(size=20) }}
+</form>
+{% if results %}
+<div id="res">
+	<h2>Most relevant results for query: {{search}}</h2>
+	{% if time %}
+		<h4>Query time: {{time}}ms</h4>
+	{% endif %}
+	{% autoescape false %}
+	{% for r in results %}
+		<p>{{r}}</p>
+	{% endfor %}
+	{% endautoescape %}
+</div>
+{% endif %}
+</body>
+</html>
